@@ -1,7 +1,27 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:mydb
-    driver-class-name: org.h2.Driver
-    username: pass_local
-    password: 12345678
+    url: jdbc:mysql://127.0.0.1:3306/study_batch?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: batch_user
+    password: 0209ahc@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 20
 
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create # 개발때는 create::wqwqw:, 나중에 update나 none 으로 수정
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+        show_sql: true
+        format_sql: true
+      logging.level:
+        org.hibernate.type:
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
+      #names:   --> enabled 가 true일 경우 자동으로 전체 Job이 실행되는데 특정 Job만 실행하도록 하는 옵션
